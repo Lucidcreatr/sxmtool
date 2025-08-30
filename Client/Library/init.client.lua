@@ -1,4 +1,6 @@
--- src/Client/Library/init.client.lua
+-- init.client.lua
+-- 
+
 local Library = {}
 Library.__index = Library
 
@@ -8,14 +10,18 @@ local Theme = require(script:WaitForChild("Utils"):WaitForChild("Theme"))
 function Library.new(opts)
     opts = opts or {}
     local self = setmetatable({}, Library)
-    self.core = Core.new(opts)
-    self.theme = Theme.merge(Theme.default(), opts.theme or {})
+    
+   
+    self.Core = Core.new()
+    
+
+    self.Theme = Theme.merge(Theme.default(), opts.theme or {})
+    
     return self
 end
 
-function Library:CreateWindow(windowOptions)
-    return self.core:CreateWindow(windowOptions, self.theme)
+function Library:CreateWindow(opts)
+    return self.Core:CreateWindow(opts, self.Theme)
 end
 
 return Library
-
